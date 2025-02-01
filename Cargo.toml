@@ -1,0 +1,10 @@
+[package]
+name = "entropy-sparrow"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+
+[[bin]]
+name = "espa"
+path = "main.rs"
