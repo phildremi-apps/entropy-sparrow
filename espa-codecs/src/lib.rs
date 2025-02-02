@@ -1,4 +1,4 @@
-const SUPPORTED_CODECS: [&'static str; 1] = ["None"];
+const SUPPORTED_CODECS: [&str; 1] = ["None"];
 
 pub fn list() -> String {
     SUPPORTED_CODECS.join(" ")
