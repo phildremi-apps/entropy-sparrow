@@ -1,9 +1,16 @@
+[workspace]
+
+members = [
+    "espa-codecs",
+]
+
 [package]
 name = "entropy-sparrow"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+espa-codecs = { path = "espa-codecs" }
 
 [[bin]]
 name = "espa"

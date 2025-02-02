@@ -5,3 +5,10 @@ version = 4
 [[package]]
 name = "entropy-sparrow"
 version = "0.1.0"
+dependencies = [
+ "espa-codecs",
+]
+
+[[package]]
+name = "espa-codecs"
+version = "0.1.0"

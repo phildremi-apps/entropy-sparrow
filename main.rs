@@ -1,3 +1,6 @@
+use espa_codecs;
+
 fn main() {
-    println!("I'm a teapot");
+	println!("Supported codecs:");
+	println!("{}", espa_codecs::list());
 }
