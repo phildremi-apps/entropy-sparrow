@@ -1,0 +1,45 @@
+name: cargo-test-suite
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+env:
+  CARGO_TERM_COLOR: always
+  RUST_TOOLCHAIN: nightly
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  testrunner:
+    name: Run tests on all supported platforms
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          submodules: false
+
+      - name: Remove preinstalled Rust tools
+        run: rm -f ~/.cargo/bin/rustfmt ~/.cargo/bin/cargo-fmt ~/.cargo/bin/rust-analyzer
+      
+      - name: Upgrade Rust toolchain
+        run: rustup update ${{ env.RUST_TOOLCHAIN }} && rustup default ${{ env.RUST_TOOLCHAIN }}
+
+      - name: Add cargo rustfmt component
+        run: rustup component add rustfmt
+
+      - name: Dump toolchain versions
+        run: |
+          echo "Enabled Rust toolchain:"
+          rustup show active-toolchain
+          rustc --version
+          cargo --version
+          rustfmt --version
+
+      - name: Run cargo format checks
+        run: cargo fmt --check
