@@ -3,8 +3,8 @@ use std::fmt;
 use std::process;
 
 fn help() {
-    println!("Supported codecs:");
-    println!("{}", espa_codecs::list());
+    println!("Supported codecs: {}", espa_codecs::list());
+    println!("Operations: compress decompress");
 }
 
 const EXIT_FAILURE: i32 = 1;
