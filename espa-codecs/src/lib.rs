@@ -1,4 +1,4 @@
-const SUPPORTED_CODECS: [&str; 1] = ["None"];
+const SUPPORTED_CODECS: [&str; 3] = ["lz77", "lz78", "lzw"];
 
 pub fn list() -> String {
     SUPPORTED_CODECS.join(" ")
