@@ -1,4 +1,4 @@
-name: cargo-fmt-check
+name: cargo-checks
 on:
   pull_request:
   push:
@@ -13,8 +13,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  rustfmt:
-    name: Check for inconsistent formatting
+  check:
+    name: Scan for potential code quality issues
     runs-on: ubuntu-24.04
 
     steps:
