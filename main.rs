@@ -32,6 +32,12 @@ fn main() {
         "lz77" => {
             // NYI
         }
+        "lz78" => {
+            // NYI
+        }
+        "lzw" => {
+            // NYI
+        }
         _ => {
             exit_with_error(format!("Unsupported codec: {codec}"));
         }
