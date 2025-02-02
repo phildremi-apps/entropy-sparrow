@@ -30,5 +30,13 @@ jobs:
       - name: Add cargo rustfmt component
         run: rustup component add rustfmt
 
+      - name: Dump toolchain versions
+        run: |
+          echo "Enabled Rust toolchain:"
+          rustup show active-toolchain
+          rustc --version
+          cargo --version
+          rustfmt --version
+
       - name: Run cargo format checks
         run: cargo fmt --check
