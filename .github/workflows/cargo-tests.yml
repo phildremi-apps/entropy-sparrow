@@ -30,16 +30,12 @@ jobs:
       - name: Upgrade Rust toolchain
         run: rustup update ${{ env.RUST_TOOLCHAIN }} && rustup default ${{ env.RUST_TOOLCHAIN }}
 
-      - name: Add cargo rustfmt component
-        run: rustup component add rustfmt
-
       - name: Dump toolchain versions
         run: |
           echo "Enabled Rust toolchain:"
           rustup show active-toolchain
           rustc --version
           cargo --version
-          rustfmt --version
 
-      - name: Run cargo format checks
-        run: cargo fmt --check
+      - name: Run cargo tests (without sanitizers)
+        run: cargo test --all-features --all-targets --workspace
