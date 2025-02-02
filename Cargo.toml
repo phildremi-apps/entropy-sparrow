@@ -1,6 +1,7 @@
 [workspace]
 
 members = [
+    "espa-bitops",
     "espa-codecs",
 ]
 
@@ -10,6 +11,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+espa-bitops = { path = "espa-bitops" }
 espa-codecs = { path = "espa-codecs" }
 
 [[bin]]
