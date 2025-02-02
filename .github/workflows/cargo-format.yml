@@ -23,6 +23,9 @@ jobs:
         with:
           fetch-depth: 1
           submodules: false
+
+      - name: Remove preinstalled Rust tools
+        run: rm -f ~/.cargo/bin/rustfmt ~/.cargo/bin/cargo-fmt ~/.cargo/bin/rust-analyzer
       
       - name: Upgrade Rust toolchain
         run: rustup update ${{ env.RUST_TOOLCHAIN }} && rustup default ${{ env.RUST_TOOLCHAIN }}
