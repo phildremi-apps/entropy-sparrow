@@ -32,6 +32,8 @@ fn main() {
     let output = &args[4];
     println!("Selected options: {codec} {operation} {input} {output}");
 
+    let compressor_op = espa_codecs::noop_identity;
+    let decompressor_op = espa_codecs::noop_identity;
     match codec.as_str() {
         "lz77" => {
             // NYI
@@ -56,7 +58,7 @@ fn main() {
                 ));
             });
             println!("Read {} bytes from {input}", decompressed.len());
-            let compressed = [];
+            let compressed = compressor_op(&decompressed);
             println!("Writing {} bytes to {output}", compressed.len());
             write_file(output, &compressed).expect("Failed to write file: {output}");
         }
@@ -68,7 +70,7 @@ fn main() {
                 ));
             });
             println!("Read {} bytes from {input}", compressed.len());
-            let decompressed = [];
+            let decompressed = decompressor_op(&compressed);
             println!("Writing {} bytes to {output}", decompressed.len());
             write_file(output, &decompressed).expect("Failed to write file: {output}");
         }
