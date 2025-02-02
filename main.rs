@@ -48,10 +48,7 @@ fn main() {
     match operation.as_str() {
         "compress" => {
             let decompressed = espa_bitops::read_file(input).unwrap_or_else(|why| {
-                exit_with_error(format!(
-                    "Failed to read file: {input} - {}",
-                    why.to_string()
-                ));
+                exit_with_error(format!("Failed to read file: {input} - {}", why));
             });
             println!("Read {} bytes from {input}", decompressed.len());
             let compressed = compressor_op(&decompressed);
@@ -60,10 +57,7 @@ fn main() {
         }
         "decompress" => {
             let compressed = espa_bitops::read_file(input).unwrap_or_else(|why| {
-                exit_with_error(format!(
-                    "Failed to read file: {input} - {}",
-                    why.to_string()
-                ));
+                exit_with_error(format!("Failed to read file: {input} - {}", why));
             });
             println!("Read {} bytes from {input}", compressed.len());
             let decompressed = decompressor_op(&compressed);
