@@ -1,5 +1,9 @@
 use std::env;
 use std::fmt;
+use std::fs::File;
+use std::io;
+use std::io::Read;
+use std::io::Write;
 use std::process;
 
 fn help() {
@@ -45,13 +49,44 @@ fn main() {
 
     match operation.as_str() {
         "compress" => {
-            // NYI
+            let decompressed = read_file(input).unwrap_or_else(|why| {
+                exit_with_error(format!(
+                    "Failed to read file: {input} - {}",
+                    why.to_string()
+                ));
+            });
+            println!("Read {} bytes from {input}", decompressed.len());
+            let compressed = [];
+            println!("Writing {} bytes to {output}", compressed.len());
+            write_file(output, &compressed).expect("Failed to write file: {output}");
         }
         "decompress" => {
-            //  NYI
+            let compressed = read_file(input).unwrap_or_else(|why| {
+                exit_with_error(format!(
+                    "Failed to read file: {input} - {}",
+                    why.to_string()
+                ));
+            });
+            println!("Read {} bytes from {input}", compressed.len());
+            let decompressed = [];
+            println!("Writing {} bytes to {output}", decompressed.len());
+            write_file(output, &decompressed).expect("Failed to write file: {output}");
         }
         _ => exit_with_error(format!("Unsupported operation: {operation}")),
     }
 
     process::exit(EXIT_SUCCESS);
+}
+
+fn read_file(path: &str) -> io::Result<Vec<u8>> {
+    let mut file = File::open(path)?;
+    let mut buffer = Vec::new();
+    file.read_to_end(&mut buffer)?;
+    Ok(buffer)
+}
+
+fn write_file(path: &str, data: &[u8]) -> io::Result<()> {
+    let mut file = File::create(path)?;
+    file.write_all(data)?;
+    Ok(())
 }
