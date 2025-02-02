@@ -14,11 +14,11 @@ concurrency:
 
 jobs:
   testrunner:
-    name: Automated testing for ${{ matrix.os }}
+    name: Run tests on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-24.04]
+        os: [ubuntu-24.04, ubuntu-24.04-arm, windows-2025, macos-13, macos-15]
 
     steps:
       - name: Check out source code
