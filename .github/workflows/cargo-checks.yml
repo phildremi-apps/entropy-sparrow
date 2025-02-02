@@ -1,4 +1,4 @@
-name: cargo-fmt-check
+name: cargo-checks
 on:
   pull_request:
   push:
@@ -13,8 +13,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  rustfmt:
-    name: Check for inconsistent formatting
+  check:
+    name: Scan for potential code quality issues
     runs-on: ubuntu-24.04
 
     steps:
@@ -30,8 +30,8 @@ jobs:
       - name: Upgrade Rust toolchain
         run: rustup update ${{ env.RUST_TOOLCHAIN }} && rustup default ${{ env.RUST_TOOLCHAIN }}
 
-      - name: Add cargo rustfmt component
-        run: rustup component add rustfmt
+      - name: Add optional cargo components
+        run: rustup component add rustfmt clippy
 
       - name: Dump toolchain versions
         run: |
@@ -43,3 +43,6 @@ jobs:
 
       - name: Run cargo format checks
         run: cargo fmt --check
+
+      - name: Run cargo clippy checks
+        run: cargo clippy --all-targets --all-features --workspace -- -D warnings
