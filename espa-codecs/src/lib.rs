@@ -4,6 +4,10 @@ pub fn list() -> String {
     SUPPORTED_CODECS.join(" ")
 }
 
+pub fn noop_identity(data: &[u8]) -> Vec<u8> {
+    data.to_vec()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

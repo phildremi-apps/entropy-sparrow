@@ -28,6 +28,8 @@ fn main() {
     let output = &args[4];
     println!("Selected options: {codec} {operation} {input} {output}");
 
+    let compressor_op = espa_codecs::noop_identity;
+    let decompressor_op = espa_codecs::noop_identity;
     match codec.as_str() {
         "lz77" => {
             // NYI
@@ -45,10 +47,22 @@ fn main() {
 
     match operation.as_str() {
         "compress" => {
-            // NYI
+            let decompressed = espa_bitops::read_file(input).unwrap_or_else(|why| {
+                exit_with_error(format!("Failed to read file: {input} - {}", why));
+            });
+            println!("Read {} bytes from {input}", decompressed.len());
+            let compressed = compressor_op(&decompressed);
+            println!("Writing {} bytes to {output}", compressed.len());
+            espa_bitops::write_file(output, &compressed).expect("Failed to write file: {output}");
         }
         "decompress" => {
-            //  NYI
+            let compressed = espa_bitops::read_file(input).unwrap_or_else(|why| {
+                exit_with_error(format!("Failed to read file: {input} - {}", why));
+            });
+            println!("Read {} bytes from {input}", compressed.len());
+            let decompressed = decompressor_op(&compressed);
+            println!("Writing {} bytes to {output}", decompressed.len());
+            espa_bitops::write_file(output, &decompressed).expect("Failed to write file: {output}");
         }
         _ => exit_with_error(format!("Unsupported operation: {operation}")),
     }

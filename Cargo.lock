@@ -6,8 +6,13 @@ version = 4
 name = "entropy-sparrow"
 version = "0.1.0"
 dependencies = [
+ "espa-bitops",
  "espa-codecs",
 ]
+
+[[package]]
+name = "espa-bitops"
+version = "0.1.0"
 
 [[package]]
 name = "espa-codecs"
